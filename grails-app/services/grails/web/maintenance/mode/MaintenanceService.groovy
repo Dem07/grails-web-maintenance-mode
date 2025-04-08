@@ -7,9 +7,8 @@ import java.time.LocalDateTime
 
 @Slf4j
 class MaintenanceService {
-    @Autowired
+
     MaintenancePropertiesHolder propertiesHolder
-    @Autowired
     List<MaintenanceListener> listeners
 
     void start(String message = null, LocalDateTime estimatedEndTime = null) {
