@@ -1,14 +1,17 @@
 package grails.web.maintenance.mode
 
 import groovy.util.logging.Slf4j
+import org.springframework.beans.factory.annotation.Autowired
 
 import java.time.LocalDateTime
 
 @Slf4j
 class MaintenanceService {
 
+    @Autowired
     MaintenancePropertiesHolder maintenancePropertiesHolder
-    List<MaintenanceListener> listeners
+    @Autowired
+    List<MaintenanceListener> maintenanceListeners
 
     void start(String message = null, LocalDateTime estimatedEndTime = null) {
         MaintenanceProperties properties = maintenancePropertiesHolder.getProperties()
@@ -21,7 +24,7 @@ class MaintenanceService {
             maintenancePropertiesHolder.setMessage(message)
         }
         maintenancePropertiesHolder.setEstimatedEndTime(estimatedEndTime)
-        listeners.each {
+        maintenanceListeners.each {
             it.onMaintenanceStart()
         }
     }
@@ -33,7 +36,7 @@ class MaintenanceService {
             return
         }
         maintenancePropertiesHolder.setEnabled(false)
-        listeners.each {
+        maintenanceListeners.each {
             it.onMaintenanceEnd()
         }
     }
