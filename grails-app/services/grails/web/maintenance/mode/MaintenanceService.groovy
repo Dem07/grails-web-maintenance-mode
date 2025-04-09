@@ -1,39 +1,38 @@
 package grails.web.maintenance.mode
 
 import groovy.util.logging.Slf4j
-import org.springframework.beans.factory.annotation.Autowired
 
 import java.time.LocalDateTime
 
 @Slf4j
 class MaintenanceService {
 
-    MaintenancePropertiesHolder propertiesHolder
+    MaintenancePropertiesHolder maintenancePropertiesHolder
     List<MaintenanceListener> listeners
 
     void start(String message = null, LocalDateTime estimatedEndTime = null) {
-        MaintenanceProperties properties = propertiesHolder.getProperties()
+        MaintenanceProperties properties = maintenancePropertiesHolder.getProperties()
         if (properties.enabled) {
             log.debug("Maintenance is already enabled.")
             return
         }
-        propertiesHolder.setEnabled(true)
+        maintenancePropertiesHolder.setEnabled(true)
         if (message) {
-            propertiesHolder.setMessage(message)
+            maintenancePropertiesHolder.setMessage(message)
         }
-        propertiesHolder.setEstimatedEndTime(estimatedEndTime)
+        maintenancePropertiesHolder.setEstimatedEndTime(estimatedEndTime)
         listeners.each {
             it.onMaintenanceStart()
         }
     }
 
     void stop() {
-        MaintenanceProperties properties = propertiesHolder.getProperties()
+        MaintenanceProperties properties = maintenancePropertiesHolder.getProperties()
         if (!properties.enabled) {
             log.debug("Maintenance is already disabled.")
             return
         }
-        propertiesHolder.setEnabled(false)
+        maintenancePropertiesHolder.setEnabled(false)
         listeners.each {
             it.onMaintenanceEnd()
         }

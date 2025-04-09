@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired
 @Slf4j
 class DefaultMaintenanceAccessHandler implements MaintenanceAccessHandler {
     @Autowired
-    MaintenancePropertiesHolder propertiesHolder
+    MaintenancePropertiesHolder maintenancePropertiesHolder
 
     @Override
     boolean canAccess(GrailsWebRequest webRequest) {
         String controllerName = webRequest.controllerName
         String uri = webRequest.request.requestURI
-        MaintenanceProperties properties = propertiesHolder.getProperties()
+        MaintenanceProperties properties = maintenancePropertiesHolder.getProperties()
         if (!properties.enabled) {
             return true
         }

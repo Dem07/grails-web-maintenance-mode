@@ -6,13 +6,13 @@ class MaintenanceTagLib {
     static defaultEncodeAs = [taglib:'html']
     static namespace = "maintenance"
 
-    MaintenancePropertiesHolder propertiesHolder
+    MaintenancePropertiesHolder maintenancePropertiesHolder
 
     /**
      * Outputs content only if system is in maintenance mode
      */
     def ifEnabled = { attrs, body ->
-        if (propertiesHolder.properties.enabled) {
+        if (maintenancePropertiesHolder.properties.enabled) {
             out << body()
         }
     }
@@ -21,7 +21,7 @@ class MaintenanceTagLib {
      * Outputs content only if system is not in maintenance mode
      */
     def ifDisabled = { attrs, body ->
-        if (!propertiesHolder.properties.enabled) {
+        if (!maintenancePropertiesHolder.properties.enabled) {
             out << body()
         }
     }
@@ -30,15 +30,15 @@ class MaintenanceTagLib {
      * Outputs the current maintenance status as a string
      */
     def status = { attrs ->
-        out << (propertiesHolder.properties.enabled ? 'maintenance' : 'operational')
+        out << (maintenancePropertiesHolder.properties.enabled ? 'maintenance' : 'operational')
     }
 
     /**
      * Outputs the current maintenance message
      */
     def message = { attrs ->
-        if (propertiesHolder.properties.enabled) {
-            out << propertiesHolder.properties.message
+        if (maintenancePropertiesHolder.properties.enabled) {
+            out << maintenancePropertiesHolder.properties.message
         }
     }
 }

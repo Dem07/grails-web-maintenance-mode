@@ -1,8 +1,11 @@
 package grails.web.maintenance.mode
 
+import org.springframework.beans.factory.annotation.Autowired
+
 import java.time.LocalDateTime
 
 class MaintenancePropertiesHolder {
+    @Autowired
     MaintenanceConfigProvider configProvider
 
     private MaintenanceProperties properties

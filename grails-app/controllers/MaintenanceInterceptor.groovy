@@ -13,19 +13,18 @@ class MaintenanceInterceptor implements Interceptor {
     int order = HIGHEST_PRECEDENCE
 
     MaintenanceAccessHandler maintenanceAccessHandler
-    MaintenancePropertiesHolder propertiesHolder
+    MaintenancePropertiesHolder maintenancePropertiesHolder
 
     MaintenanceInterceptor() {
         matchAll()
     }
 
     boolean before() {
-
         if (maintenanceAccessHandler.canAccess(webRequest)) {
             return true
         }
-        MaintenanceProperties properties = propertiesHolder.getProperties()
 
+        MaintenanceProperties properties = maintenancePropertiesHolder.getProperties()
         response.setStatus(HttpStatus.SERVICE_UNAVAILABLE.value())
         response.setContentType('application/json')
         response.writer.write(JsonOutput.toJson([
