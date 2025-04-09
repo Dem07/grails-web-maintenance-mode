@@ -14,6 +14,10 @@ class DefaultMaintenanceAccessHandler implements MaintenanceAccessHandler {
         String controllerName = webRequest.controllerName
         String uri = webRequest.request.requestURI
         MaintenanceProperties properties = propertiesHolder.getProperties()
+        if (!properties.enabled) {
+            return true
+        }
+
         if (properties.excludedControllers.contains(controllerName)) {
             log.debug("Allowing access to excluded controller: ${controllerName}")
             return true

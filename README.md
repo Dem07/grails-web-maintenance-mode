@@ -76,12 +76,6 @@ def endMaintenance() {
 By default, the plugin uses a simple rule-based access handler that checks against excluded controllers and URIs. You can implement your own access rules by creating a custom `MaintenanceAccessHandler`:
 
 ```groovy
-package com.example.maintenance
-
-import com.yourcompany.maintenancemode.MaintenanceAccessHandler
-import grails.plugin.springsecurity.SpringSecurityService
-import grails.web.servlet.mvc.GrailsWebRequest
-
 class RoleBasedMaintenanceAccessHandler implements MaintenanceAccessHandler {
     SpringSecurityService springSecurityService
     
@@ -120,10 +114,6 @@ beans = {
 You can create listeners for maintenance events to pause and restart system components during maintenance:
 
 ```groovy
-package com.example.maintenance
-
-import org.quartz.Scheduler
-
 class QuartzMaintenanceListener implements MaintenanceListener {
     Scheduler quartzScheduler
     
