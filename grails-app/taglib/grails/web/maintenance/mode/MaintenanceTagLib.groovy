@@ -1,7 +1,13 @@
 package grails.web.maintenance.mode
 
-import org.springframework.beans.factory.annotation.Autowired
-
+/**
+ * Tag library providing GSP tags for working with maintenance mode.
+ * <p>
+ * This library provides utility tags for checking maintenance mode status.
+ *
+ * @author Dariusz Bąkowski
+ * @since 0.1
+ */
 class MaintenanceTagLib {
     static defaultEncodeAs = [taglib:'html']
     static namespace = "maintenance"
@@ -9,7 +15,10 @@ class MaintenanceTagLib {
     MaintenancePropertiesHolder maintenancePropertiesHolder
 
     /**
-     * Outputs content only if system is in maintenance mode
+     * Renders content only if maintenance mode is enabled.
+     * <p>
+     * Usage: <maintenance:ifEnabled>Content to show during maintenance</maintenance:ifEnabled>
+     * </p>
      */
     def ifEnabled = { attrs, body ->
         if (maintenancePropertiesHolder.properties.enabled) {
@@ -18,7 +27,10 @@ class MaintenanceTagLib {
     }
 
     /**
-     * Outputs content only if system is not in maintenance mode
+     * Renders content only if maintenance mode is disabled.
+     * <p>
+     * Usage: <maintenance:ifDisabled>Content to show when not in maintenance</maintenance:ifDisabled>
+     * </p>
      */
     def ifDisabled = { attrs, body ->
         if (!maintenancePropertiesHolder.properties.enabled) {
@@ -27,18 +39,24 @@ class MaintenanceTagLib {
     }
 
     /**
-     * Outputs the current maintenance status as a string
+     * Outputs the current maintenance message.
+     * <p>
+     * Usage: <maintenance:message/>
+     * <p>
+     * Returns: The current maintenance message
      */
-    def status = { attrs ->
-        out << (maintenancePropertiesHolder.properties.enabled ? 'maintenance' : 'operational')
+    def message = { attrs ->
+        out << maintenancePropertiesHolder.properties.message
     }
 
     /**
-     * Outputs the current maintenance message
+     * Outputs the estimated maintenance completion time.
+     * <p>
+     * Usage: <maintenance:estimatedEndTime/>
+     * <p>
+     * Returns: estimated maintenance completion time
      */
-    def message = { attrs ->
-        if (maintenancePropertiesHolder.properties.enabled) {
-            out << maintenancePropertiesHolder.properties.message
-        }
+    def estimatedEndTime = { attrs ->
+        out << maintenancePropertiesHolder.properties.estimatedEndTime
     }
 }

@@ -4,6 +4,16 @@ import groovy.util.logging.Slf4j
 import org.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.beans.factory.annotation.Autowired
 
+/**
+ * Default implementation of {@link MaintenanceAccessHandler} that checks
+ * requests against the configured excluded controllers and URIs.
+ * <p>
+ * This handler allows requests to proceed if they target a controller or URI
+ * that has been explicitly excluded from maintenance mode restrictions.
+ *
+ * @author Dariusz Bąkowski
+ * @since 0.1
+ */
 @Slf4j
 class DefaultMaintenanceAccessHandler implements MaintenanceAccessHandler {
     @Autowired

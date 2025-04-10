@@ -4,19 +4,15 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsGradlePluginVersion"
-        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:3.3.4"
     }
 }
 
-version "0.1"
-group "grails.web.maintenance.mode"
+version "1.0.0"
+group "io.github.Dem07"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
 apply plugin:"org.grails.grails-plugin"
-apply plugin:"asset-pipeline"
-apply plugin:"org.grails.grails-gsp"
 apply plugin:"maven-publish"
+
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
@@ -30,45 +26,17 @@ configurations {
 }
 
 dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    compileOnly "io.micronaut:micronaut-inject-groovy"
-    console "org.grails:grails-console"
-    implementation "org.springframework.boot:spring-boot-starter-logging"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.springframework.boot:spring-boot-autoconfigure"
     implementation "org.grails:grails-core"
-    implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation "org.springframework.boot:spring-boot-starter-tomcat"
-    implementation "org.grails:grails-web-boot"
-    implementation "org.grails:grails-logging"
-    implementation "org.grails:grails-plugin-rest"
-    implementation "org.grails:grails-plugin-databinding"
-    implementation "org.grails:grails-plugin-i18n"
     implementation "org.grails:grails-plugin-services"
-    implementation "org.grails:grails-plugin-url-mappings"
     implementation "org.grails:grails-plugin-interceptors"
-    implementation "org.grails.plugins:cache"
-    implementation "org.grails.plugins:async"
-    implementation "org.grails.plugins:scaffolding"
-    implementation "org.grails.plugins:gsp"
     profile "org.grails.profiles:web-plugin"
-    runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:3.3.4"
-    testImplementation "io.micronaut:micronaut-inject-groovy"
-    testImplementation "org.grails:grails-gorm-testing-support"
-    testImplementation "org.mockito:mockito-core"
     testImplementation "org.grails:grails-web-testing-support"
 }
 
-bootRun {
-    ignoreExitValue true
-    jvmArgs(
-        '-Dspring.output.ansi.enabled=always', 
-        '-noverify', 
-        '-XX:TieredStopAtLevel=1',
-        '-Xmx1024m')
-    sourceResources sourceSets.main
-    String springProfilesActive = 'spring.profiles.active'
-    systemProperty springProfilesActive, System.getProperty(springProfilesActive)
+groovydoc {
+    includePrivate = false
+    docTitle = "Grails Maintenance Mode Plugin ${version}"
+    windowTitle = "Grails Maintenance Mode Plugin ${version}"
 }
 
 tasks.withType(GroovyCompile) {
@@ -83,16 +51,45 @@ tasks.withType(Test) {
 // enable if you wish to package this plugin as a standalone application
 bootJar.enabled = false
 
-
-assets {
-    packagePlugin = true
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
             from components.java
             artifact sourcesJar
+            artifact javadocJar
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'Grails Maintenance Mode Plugin'
+                description = 'A simple, flexible plugin for implementing maintenance mode in Grails applications'
+                url = 'https://github.com/Dem07/grails-web-maintenance-mode/tree/master'
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'Dem07'
+                        name = 'Dariusz Bąkowski'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/Dem07/grails-maintenance-mode.git'
+                    developerConnection = 'scm:git:ssh://github.com:Dem07/grails-maintenance-mode.git'
+                    url = 'https://github.com/Dem07/grails-maintenance-mode'
+                }
+            }
         }
     }
 }

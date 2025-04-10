@@ -8,6 +8,15 @@ import groovy.json.JsonOutput
 import groovy.transform.CompileStatic
 import org.springframework.http.HttpStatus
 
+/**
+ * Grails interceptor that manages access to the application during maintenance mode.
+ * <p>
+ * This interceptor examines each incoming request and, if maintenance mode is active,
+ * determines whether the request should be allowed to proceed or disallowed.
+ *
+ * @author Dariusz Bąkowski
+ * @since 0.1
+ */
 @CompileStatic
 class MaintenanceInterceptor implements Interceptor {
     int order = HIGHEST_PRECEDENCE

@@ -7,9 +7,19 @@ import groovy.util.logging.Slf4j
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+/**
+ * Implementation of {@link MaintenanceConfigProvider} that loads initial
+ * maintenance properties from the application configuration files.
+ * <p>
+ * This provider reads values from application.yml or application.properties
+ * and uses them to initialize the maintenance mode state.
+ *
+ * @author Dariusz Bąkowski
+ * @since 0.1
+ */
 @Slf4j
 class DefaultMaintenanceConfigProvider implements MaintenanceConfigProvider, GrailsConfigurationAware {
-    Config config
+    private Config config
 
     @Override
     void setConfiguration(Config config) {

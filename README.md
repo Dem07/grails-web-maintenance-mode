@@ -1,5 +1,35 @@
 # Grails Maintenance Mode Plugin
 
+A simple, flexible plugin for implementing maintenance mode in Grails applications. This plugin allows you to easily enable a maintenance mode that blocks regular user access while allowing administrators to continue working.
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.yourusername/maintenance-mode.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.Dem07%22%20AND%20a:%22maintenance-mode%22)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+## Overview
+
+Maintenance mode is essential for planned downtime, upgrades, and deployments. This plugin provides a simple, non-invasive way to implement maintenance mode in your Grails application with minimal configuration.
+
+## Installation
+
+Add the dependency to your `build.gradle`:
+
+```groovy
+dependencies {
+    implementation 'io.github.Dem07:maintenance-mode:1.0.0'
+}
+```
+
+## Basic Configuration
+
+Configure the plugin in your `application.yml`:
+
+```yaml
+maintenanceMode:
+    enabled: false
+    message: "System is currently undergoing maintenance."
+    excludedUris: ['/status.*', '/maintenance.*', '/admin.*']
+    excludedControllers: ['status', 'maintenance', 'admin']
+```
 
 ## How It Works: The Interceptor
 
@@ -27,21 +57,6 @@ When a request comes in, the interceptor follows this flow:
 3. **Request Handling**: For requests that should be blocked:
     - Requests receive a 503 Service Unavailable response with JSON data about the maintenance
 
-## Installation
-
-
-
-## Basic Configuration
-
-Configure the plugin in your `application.yml`:
-
-```yaml
-maintenanceMode:
-    enabled: false
-    message: "System is currently undergoing maintenance."
-    excludedUris: ['/status.*', '/maintenance.*', '/admin.*']
-    excludedControllers: ['status', 'maintenance', 'admin']
-```
 
 ## Simple Usage
 
@@ -151,10 +166,7 @@ beans = {
     </div>
 </maintenance:ifEnabled>
 
-<!-- Output current status -->
-<p>System status: <maintenance:status/></p>
-
-<!-- Output maintenance message if in maintenance mode -->
+<!-- Output maintenance message -->
 <p><maintenance:message/></p>
 ```
 
