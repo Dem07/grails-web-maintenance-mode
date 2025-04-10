@@ -3,7 +3,7 @@ package grails.web.maintenance.mode
 import grails.plugins.*
 
 class GrailsWebMaintenanceModeGrailsPlugin extends Plugin {
-    def grailsVersion = "3.0.0 > *"
+    def grailsVersion = "5.2.4 > *"
     def pluginExcludes = [
     ]
     def title = "Grails Web Maintenance Mode"
