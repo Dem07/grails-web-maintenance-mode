@@ -7,11 +7,11 @@ buildscript {
     }
 }
 
-version "1.0.0"
-group "io.github.Dem07"
-
 apply plugin:"org.grails.grails-plugin"
 apply plugin:"maven-publish"
+
+version "1.0.0"
+group "io.github.dem07"
 
 repositories {
     mavenLocal()
@@ -54,6 +54,8 @@ bootJar.enabled = false
 publishing {
     publications {
         maven(MavenPublication) {
+            version="1.0.0"
+            artifactId = "maintenance-mode"
             from components.java
             artifact sourcesJar
             artifact javadocJar
@@ -68,7 +70,7 @@ publishing {
             pom {
                 name = 'Grails Maintenance Mode Plugin'
                 description = 'A simple, flexible plugin for implementing maintenance mode in Grails applications'
-                url = 'https://github.com/Dem07/grails-web-maintenance-mode/tree/master'
+                url = 'https://github.com/dem07/grails-web-maintenance-mode/tree/master'
 
                 licenses {
                     license {
@@ -79,15 +81,15 @@ publishing {
 
                 developers {
                     developer {
-                        id = 'Dem07'
+                        id = 'dem07'
                         name = 'Dariusz Bąkowski'
                     }
                 }
 
                 scm {
-                    connection = 'scm:git:git://github.com/Dem07/grails-maintenance-mode.git'
-                    developerConnection = 'scm:git:ssh://github.com:Dem07/grails-maintenance-mode.git'
-                    url = 'https://github.com/Dem07/grails-maintenance-mode'
+                    connection = 'scm:git:git://github.com/dem07/grails-maintenance-mode.git'
+                    developerConnection = 'scm:git:ssh://github.com:dem07/grails-maintenance-mode.git'
+                    url = 'https://github.com/dem07/grails-maintenance-mode'
                 }
             }
         }

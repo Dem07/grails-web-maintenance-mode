@@ -2,7 +2,7 @@
 
 A simple, flexible plugin for implementing maintenance mode in Grails applications. This plugin allows you to easily enable a maintenance mode that blocks regular user access while allowing administrators to continue working.
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.yourusername/maintenance-mode.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.Dem07%22%20AND%20a:%22maintenance-mode%22)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.yourusername/maintenance-mode.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.dem07%22%20AND%20a:%22maintenance-mode%22)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Overview
@@ -15,7 +15,7 @@ Add the dependency to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'io.github.Dem07:maintenance-mode:1.0.0'
+    implementation 'io.github.dem07:maintenance-mode:1.0.0'
 }
 ```
 

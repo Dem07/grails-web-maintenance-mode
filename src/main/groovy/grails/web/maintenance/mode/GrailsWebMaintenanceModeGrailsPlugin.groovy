@@ -12,8 +12,8 @@ class GrailsWebMaintenanceModeGrailsPlugin extends Plugin {
     def authorEmail = ""
     def description = "A simple, flexible plugin for implementing maintenance mode in Grails applications"
     def profiles = ['web']
-    def documentation = "https://github.com/Dem07/grails-web-maintenance-mode"
-    def issueManagement = [system: "GitHub", url: "http://github.com/Dem07/grails-maintenance-mode/issues"]
+    def documentation = "https://github.com/dem07/grails-web-maintenance-mode"
+    def issueManagement = [system: "GitHub", url: "http://github.com/dem07/grails-maintenance-mode/issues"]
     Closure doWithSpring() { {->
         // Register the config provider
         maintenanceConfigProvider(DefaultMaintenanceConfigProvider)
